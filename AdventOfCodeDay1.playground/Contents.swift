@@ -205,11 +205,6 @@ var input = """
             1637
             """
 
-//for i in input {
-//    var group = i(separatedBy: "\n")
-//    print(group)
-//}
-
 var testInput = """
                 1721
                 979
@@ -219,13 +214,6 @@ var testInput = """
                 1456
                 """
 var inputArray = input.components(separatedBy: "\n")
-print(inputArray)
-
-//inputArray.reduce(0) { }
-//inputArray.filter {
-//    print($0)
-//    return true
-//}
 
 outerLoop: for i in 0...inputArray.count-1 {
     for j in (i+1)...inputArray.count-1 {
@@ -245,10 +233,6 @@ outerLoop: for i in 0...inputArray.count-1 {
             break innerLoop1
         }
         for k in (j+1)...inputArray.count-1 {
-//            print("i: \(i)")
-//            print("j: \(j)")
-//            print("k: \(k)")
-//            print(Int(inputArray[i])! + Int(inputArray[j])! + Int(inputArray[k])!)
             if Int(inputArray[i])! + Int(inputArray[j])! + Int(inputArray[k])! == 2020 {
                 print("i: \(inputArray[i]) j: \(inputArray[j]) k: \(inputArray[k])")
                 print(Int(inputArray[i])! * Int(inputArray[j])! * Int(inputArray[k])!)
