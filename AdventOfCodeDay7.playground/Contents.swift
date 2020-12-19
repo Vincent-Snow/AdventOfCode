@@ -1,12 +1,5 @@
 import UIKit
-//class Bag {
-//    var color: String
-//    var containsBags: [Bag] = []
-//
-//    init(color:String, containsBags:[Bag]) {
-//        self.color = color
-//    }
-//}
+
 
 var str = "Hello, playground"
 var rules = """
