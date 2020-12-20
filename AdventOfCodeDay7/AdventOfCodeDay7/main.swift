@@ -19,16 +19,6 @@ var rules = """
             dotted black bags contain no other bags.
             """
 
-//1
-//3
-//0
-//4
-//0
-//7
-//11
-//8
-//23
-//
 var rules2  = """
             shiny gold bags contain 2 dark red bags.
             dark red bags contain 2 dark orange bags.
@@ -56,22 +46,24 @@ for i in 0..<rulesArray.count {
     let firstBag = rulesArray[i].components(separatedBy: " bags contain ")
     bagDict[firstBag[0]] = firstBag[1].components(separatedBy: ", ")
 }
-
+var bagContents: [[String]] = []
 var bagDive = ["", "shiny", "gold"]
 var totalBags = 0
 var tempBags = 0
 var numBags = 0
 var containingBags = 0
 var test = 0
-func bagRecurse() {
+print(1 + (1 * ( 3 + (3*0) + 4 + (4*0))) + 2 + (2 * (5 + (5 * 0) + 6 + (6 * 0))))
+// total =  1 dark olive + (1 * (3 faded black + (3 * contains no bags) + 4 dotted blue + (4 * contains no bags))) + 2 vibrant plum + (2 * (5 faded black + (5 * contains no bags) + 6 dotted blue + (6 * contains no bags)))
+// containing = num + (num * containing)  + num2 + (num2 * containing2) + num3 + (num3 + containing3)
+// num = num + (num * containing)
+func bagRecurse() -> Int {
     
     bagDiveLoop: for i in bagDict["\(bagDive[1]) \(bagDive[2])"] ?? [""] {
         
         //bagDive = []
         if i.contains("no other bags.") {
-           // print(bagDive)
-            bagContentsDict["\(bagDive[1]) \(bagDive[2])"] = 0
-            numBags = Int(bagDive[0]) ?? 0
+        //bagContentsDict["\(bagDive[1]) \(bagDive[2])"] = 0
             containingBags = 0
             print("end")
         
@@ -80,25 +72,26 @@ func bagRecurse() {
         }
         tempBags += numBags + (numBags * containingBags)
         
-        if true {
-            allBags: for j in bagDict.keys {
-                if i.contains(j) {
-                    bagDive = i.components(separatedBy: " ")
-                    print(bagDive)
-                    numBags = Int(bagDive[0]) ?? 0
-                    bagRecurse()
-                    containingBags = tempBags
-
-                    print("temp bags", tempBags)
-                }
+        bagContents = []
+        allBags: for j in bagDict.keys {
+            if i.contains(j) {
+                bagDive = i.components(separatedBy: " ")
+                bagContents.append(bagDive)
             }
+            
+            for k in bagContents {
+                bagRecurse()
+            }
+           
         }
-        
+    
+    
     }
     test += tempBags
     print("test", test)
     //totalBags+=tempBags
     //containingBags = 0
+    return 0
 }
 
 bagRecurse()
