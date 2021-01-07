@@ -13,7 +13,7 @@
  */
 
 import Foundation
-
+let start = Date()
 func modInverse(a:Int, m:Int) -> Int? {
     let tmp = a % m
     for i in 1..<m {
@@ -87,6 +87,6 @@ func pt1() {
             lowestBus = i
         }
     }
-    print(lowestRemainder, lowestBus, lowestRemainder * lowestBus)
+    print(lowestRemainder, lowestBus, lowestRemainder * lowestBus, Date().timeIntervalSince(start))
 }
 pt1()
