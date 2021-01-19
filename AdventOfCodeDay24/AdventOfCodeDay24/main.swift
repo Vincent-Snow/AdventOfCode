@@ -29,10 +29,11 @@ eneswnwswnwsenenwnwnwwseeswneewsenese
 neswnwewnwnwseenwseesewsenwsweewe
 wseweeenwnesenwwwswnew
 """
-let byH = 5
-let byW = 10
+let start = Date()
+let byH = 1
+let byW = 2
 var coordDict: [IntPairStruct:String] = [:]
-let inputArray = testInput.components(separatedBy: "\n")
+let inputArray = input.components(separatedBy: "\n")
 let test = ["nwwswee"]
 for i in inputArray {
     var x = 0
@@ -75,11 +76,8 @@ for i in inputArray {
     } else if coordDict[xy] == "white" {
         coordDict[xy] = "black"
     }
-    //print(xy)
 }
-for i in coordDict.sorted(by: { $0.key.int0 > $1.key.int0 }) {
-    print(i)
-}
+
 let item = coordDict.filter({$0.value == "black"})
 print(item.count)
 var tempDict: [IntPairStruct:String] = [:]
@@ -87,7 +85,7 @@ let coords = [(-byH,byH),(-byW,0),(-byH,-byH),(byH,-byH),(byW,0),(byH,byH)]
 var counter = 0
 
 
-for i in 1...3 {
+for _ in 1...100 {
     tempDict = [:]
     for i in coordDict.filter({$0.value == "black"}) {
         for j in coords {
@@ -97,14 +95,12 @@ for i in 1...3 {
             }
         }
     }
-    //print(coordDict)
+
     for j in coordDict.sorted(by: {$0.key.int0 > $1.key.int0}) {
         if j.value == "black" {
-            
+            counter = 0
             kLoop: for k in coords {
-                counter = 0
                 let tup = (j.key.int0+k.0, j.key.int1+k.1)
-                print(tup,j.key,j.value)
                 if coordDict[tup] == "black" {
                     counter+=1
                 }
@@ -112,19 +108,13 @@ for i in 1...3 {
                     break kLoop
                 }
             }
-            if counter == 1 || counter == 2 {
-                
-            }
-            if counter == 0 {
-                tempDict[j.key] = "white"
-            } else if counter > 2 {
+            if counter == 0 || counter > 2 {
                 tempDict[j.key] = "white"
             }
         } else if j.value == "white" {
+            counter = 0
             kLoop: for k in coords {
-                counter = 0
                 let tup = (j.key.int0+k.0, j.key.int1+k.1)
-                print(tup,j.key, j.value)
                 if coordDict[tup] == "black" {
                     counter+=1
                 }
@@ -132,18 +122,16 @@ for i in 1...3 {
                     break kLoop
                 }
             }
-            //print(counter)
             if counter == 2 {
                 tempDict[j.key] = "black"
             }
         }
     }
-    //print(tempDict)
+
     for xy in tempDict {
         coordDict[xy.key] = xy.value
     }
-    //coordDict = tempDict
-    let item2 = coordDict.filter({$0.value == "black"})
-    let item3 = coordDict.filter({$0.value == "white"})
-    print(item2.count, item3.count)
 }
+let item2 = coordDict.filter({$0.value == "black"})
+let item3 = coordDict.filter({$0.value == "white"})
+print(item2.count, item3.count, Date().timeIntervalSince(start))
