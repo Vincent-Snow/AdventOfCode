@@ -9,6 +9,7 @@ import Foundation
 
 let game = input.components(separatedBy: "\n").map({String($0)})
 var scorep1 = 0
+var scorep2 = 0
 
 for i in game {
     let round = i.components(separatedBy: " ")
@@ -39,7 +40,6 @@ for i in game {
 }
 
 
-var scorep2 = 0
 for i in game {
     let round = i.components(separatedBy: " ")
     let choice: Int
