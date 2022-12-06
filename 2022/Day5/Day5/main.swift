@@ -40,9 +40,6 @@ jloop: for j in sani {
     }
     insts.append(n)
 }
-for i in insts {
-    print(i)
-}
 
 var stacks: [[Character]] = []
 let end = rows.endIndex-1
@@ -57,7 +54,6 @@ for crates in rows {
         break
     }
     for crate in crates {
-
         if crate.isWhitespace {
             whitespace+=1
         } else {
@@ -72,7 +68,6 @@ for crates in rows {
     }
 }
 for i in 0..<stacks.count {
-//    stacks[i] = stacks[i].reversed()
     print(stacks[i])
 }
 print("")
@@ -94,6 +89,6 @@ for inst in insts {
     }
     print("")
 }
-for i in stacks {
-    print(i.first!)
-}
+
+let tops = stacks.map { $0.first! }
+print(String(tops))
