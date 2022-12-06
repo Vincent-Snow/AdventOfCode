@@ -21,12 +21,12 @@ var i = 1
 var priorities = 0
 var priorities2 = 0
 let sacks = input.components(separatedBy: "\n")
+let stri = stride(from: 0, through: sacks.count-3, by: 3)
 
 for c in "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ" {
     alphabet[c] = i
     i+=1
 }
-
 
 sackLoop: for sack in sacks {
     var sackDict: [Character: Bool] = [:]
@@ -43,8 +43,6 @@ sackLoop: for sack in sacks {
     }
 }
 
-let stri = stride(from: 0, through: sacks.count-3, by: 3)
-
 sackLoop: for ind in stri {
     let sack1 = Set(sacks[ind])
     let sack2 = Set(sacks[ind+1])
@@ -53,8 +51,8 @@ sackLoop: for ind in stri {
     let inter2 = inter.intersection(sack3)
     priorities2+=alphabet[inter2.first!]!
     
-
 }
+
 print(priorities)
 print(priorities2)
 
