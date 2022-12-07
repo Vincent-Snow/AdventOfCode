@@ -7,24 +7,6 @@
 
 import Foundation
 
-let testInput = """
-1000
-2000
-3000
-
-4000
-
-5000
-6000
-
-7000
-8000
-9000
-
-10000
-"""
-
-var h = 0
 var elvesTotal: [Int] = []
 let elves = input.components(separatedBy: "\n\n")
 for i in elves {
@@ -35,5 +17,6 @@ for i in elves {
 elvesTotal = elvesTotal.sorted()
 let end = elvesTotal.endIndex-1
 print(elvesTotal[end])
+print(elvesTotal.max()!)
 print(elvesTotal[end]+elvesTotal[end-1]+elvesTotal[end-2])
 

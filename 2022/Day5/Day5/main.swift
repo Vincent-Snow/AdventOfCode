@@ -22,9 +22,10 @@ var temp = input.replacingOccurrences(of: "[", with: "")
 temp = temp.replacingOccurrences(of: "]", with: "")
 let x = temp.components(separatedBy: "\n\n")
 let rows = x[0].components(separatedBy: "\n")
-
 var insts: [[Int]] = []
 let y = x[1].components(separatedBy: "\n")
+
+
 for i in y {
     var strip = i.replacingOccurrences(of: "move", with: "")
     strip = strip.replacingOccurrences(of: "from", with: "")
@@ -42,6 +43,7 @@ jloop: for j in sani {
 }
 
 var stacks: [[Character]] = []
+var stacks2 = stacks
 let end = rows.endIndex-1
 let last = Int(String(rows[end].last!))!
 for _ in 0...last-1 {
@@ -67,10 +69,11 @@ for crates in rows {
         }
     }
 }
-for i in 0..<stacks.count {
-    print(stacks[i])
-}
-print("")
+
+stacks2 = stacks
+
+
+
 for inst in insts {
     let c = inst[0]
     let fromInd = inst[1]-1
@@ -79,16 +82,24 @@ for inst in insts {
         stacks[toInd].insert(stacks[fromInd][ind], at: 0)
     }
     stacks[fromInd].removeSubrange(0...c-1)
-    //let stri = stride(from: s, through: stacks[i[1]]-1-i[0], by: -1)
-//    for j in stri {
-//        stacks[i[2]].append(stacks[j])
-//    }
-//    stacks[i[1]].removeSubrange(i[0]-1...)
-    for i in stacks {
-        print(i)
-    }
-    print("")
 }
 
+for i in 0..<stacks2.count {
+    stacks2[i] = stacks2[i].reversed()
+}
+
+for inst in insts {
+    let c = inst[0]
+    let fromInd = inst[1]-1
+    let toInd = inst[2]-1
+    let end = stacks2[fromInd].count-1
+    let fromRange = end-(c-1)...end
+    stacks2[toInd]+=stacks2[fromInd][fromRange]
+    stacks2[fromInd].removeSubrange(fromRange)
+}
+
+
 let tops = stacks.map { $0.first! }
+let tops2 = stacks2.map { $0.last! }
 print(String(tops))
+print(String(tops2))
