@@ -30,9 +30,9 @@ zoneight234
 7pqrstsixteen
 """
 
-var s = 0
-let strArr: [String] = testInput2.components(separatedBy: "\n")
-
+var s1 = 0
+var s2 = 0
+let strArr: [String] = input.components(separatedBy: "\n")
 func checkNum() {
     
 }
@@ -50,13 +50,13 @@ cLoop: for char in str.reversed() {
             break cLoop
         }
     }
-    s += Int(sNum)!
+    s1 += Int(sNum)!
 }
-print(s)
+print(s1)
 
 for str in strArr {
     var sNum = ""
-    var arr = str.map({ String($0) })
+    let arr = str.map({ String($0) })
 cLoop: for c in 0..<arr.count {
         let ac = arr[c]
         if ac.isInt {
@@ -107,5 +107,59 @@ nSwitch: switch ac {
         break
     }
         }
-    print(sNum)
+
+    
+cLoop: for c in 0..<arr.count {
+    let ind = arr.count-1
+    let ac = arr[ind-c]
+    if ac.isInt {
+        sNum += String(ac)
+        break cLoop
+    }
+nSwitch: switch ac {
+    case "e":
+        if c < arr.count + 2 && arr[ind-c-1] == "n" && arr[ind-c-2] == "o" {
+            sNum += "1"
+            break cLoop
+        } else if c < arr.count + 4 && arr[ind-c-1] == "e" && arr[ind-c-2] == "r" && arr[ind-c-3] == "h" && arr[ind-c-4] == "t" {
+            sNum += "3"
+            break cLoop
+        } else if c < arr.count + 3 && arr[ind-c-1] == "v" && arr[ind-c-2] == "i" && arr[ind-c-3] == "f"{
+            sNum += "5"
+            break cLoop
+        } else if c < arr.count + 3 && arr[ind-c-1] == "n" && arr[ind-c-2] == "i" && arr[ind-c-3] == "n"{
+            sNum += "9"
+            break cLoop
+        }
+    case "o":
+        if c < arr.count + 2 && arr[ind-c-1] == "w" && arr[ind-c-2] == "t" {
+            sNum += "2"
+            break cLoop
+        }
+    case "r":
+        if c < arr.count + 3 && arr[ind-c-1] == "u" && arr[ind-c-2] == "o" && arr[ind-c-3] == "f"{
+            sNum += "4"
+            break cLoop
+        }
+    case "x":
+        if c < arr.count + 1 && arr[ind-c-1] == "i" && arr[ind-c-2] == "s" {
+            sNum += "6"
+            break cLoop
+        }
+    case "n":
+        if c < arr.count + 4 && arr[ind-c-1] == "e" && arr[ind-c-2] == "v" && arr[ind-c-3] == "e" && arr[ind-c-4] == "s" {
+                sNum += "7"
+                break cLoop
+            }
+    case "t":
+        if c < arr.count + 4 && arr[ind-c-1] == "h" && arr[ind-c-2] == "g" && arr[ind-c-3] == "i" && arr[ind-c-4] == "e" {
+            sNum += "8"
+            break cLoop
+        }
+    default:
+        break
+    }
+    }
+    s2 += Int(sNum)!
 }
+print(s2)
