@@ -63,43 +63,45 @@ cLoop: for c in 0..<arr.count {
             sNum += String(ac)
             break cLoop
         }
+        let one = c < arr.count - 1, two = c < arr.count - 2, three = c < arr.count - 3, four = c < arr.count - 4
+        let ind1 = arr[c+1], ind2 = arr[c+2], ind3 = arr[c+3], ind4 = arr[c+4]
 nSwitch: switch ac {
     case "o":
-        if c < arr.count - 2 && arr[c+1] == "n" && arr[c+2] == "e" {
+        if two && ind1 == "n" && ind2 == "e" {
             sNum += "1"
             break cLoop
         }
     case "t":
-        if c < arr.count - 2 && arr[c+1] == "w" && arr[c+2] == "o" {
+        if one && ind1 == "w" && ind2 == "o" {
             sNum += "2"
             break cLoop
-        } else if c < arr.count - 4 && arr[c+1] == "h" && arr[c+2] == "r" && arr[c+3] == "e" && arr[c+4] == "e" {
+        } else if four && ind1 == "h" && ind2 == "r" && ind3 == "e" && ind4 == "e" {
             sNum += "3"
             break cLoop
         }
     case "f":
-        if c < arr.count - 3 && arr[c+1] == "o" && arr[c+2] == "u" && arr[c+3] == "r"{
+        if three && ind1 == "o" && ind2 == "u" && ind3 == "r"{
             sNum += "4"
             break cLoop
-        } else if c < arr.count - 3 && arr[c+1] == "i" && arr[c+2] == "v" && arr[c+3] == "e"{
+        } else if three && ind1 == "i" && ind2 == "v" && ind3 == "e"{
             sNum += "5"
             break cLoop
         }
     case "s":
-        if c < arr.count - 1 && arr[c+1] == "i" && arr[c+2] == "x" {
+        if one && ind1 == "i" && ind2 == "x" {
             sNum += "6"
             break cLoop
-        } else if c < arr.count - 4 && arr[c+1] == "e" && arr[c+2] == "v" && arr[c+3] == "e" && arr[c+4] == "n" {
+        } else if four && ind1 == "e" && ind2 == "v" && ind3 == "e" && ind4 == "n" {
             sNum += "7"
             break cLoop
         }
     case "e":
-        if c < arr.count - 4 && arr[c+1] == "i" && arr[c+2] == "g" && arr[c+3] == "h" && arr[c+4] == "t" {
+        if four && ind1 == "i" && ind2 == "g" && ind3 == "h" && ind4 == "t" {
             sNum += "8"
             break cLoop
         }
     case "n":
-        if c < arr.count - 3 && arr[c+1] == "i" && arr[c+2] == "n" && arr[c+3] == "e"{
+        if three && ind1 == "i" && ind2 == "n" && ind3 == "e"{
             sNum += "9"
             break cLoop
         }
@@ -116,49 +118,51 @@ cLoop: for c in 0..<arr.count {
         sNum += String(ac)
         break cLoop
     }
+    let one = c < arr.count + 1, two = c < arr.count + 2, three = c < arr.count + 3, four = c < arr.count + 4
+    let ind1 = arr[ind-c-1], ind2 = arr[ind-c-2], ind3 = arr[ind-c-3], ind4 = arr[ind-c-4]
 nSwitch: switch ac {
     case "e":
-        if c < arr.count + 2 && arr[ind-c-1] == "n" && arr[ind-c-2] == "o" {
+        if two && ind1 == "n" && ind2 == "o" {
             sNum += "1"
             break cLoop
-        } else if c < arr.count + 4 && arr[ind-c-1] == "e" && arr[ind-c-2] == "r" && arr[ind-c-3] == "h" && arr[ind-c-4] == "t" {
+        } else if four && ind1 == "e" && ind2 == "r" && ind3 == "h" && ind4 == "t" {
             sNum += "3"
             break cLoop
-        } else if c < arr.count + 3 && arr[ind-c-1] == "v" && arr[ind-c-2] == "i" && arr[ind-c-3] == "f"{
+        } else if three && ind1 == "v" && ind2 == "i" && ind3 == "f"{
             sNum += "5"
             break cLoop
-        } else if c < arr.count + 3 && arr[ind-c-1] == "n" && arr[ind-c-2] == "i" && arr[ind-c-3] == "n"{
+        } else if three && ind1 == "n" && ind2 == "i" && ind3 == "n"{
             sNum += "9"
             break cLoop
         }
     case "o":
-        if c < arr.count + 2 && arr[ind-c-1] == "w" && arr[ind-c-2] == "t" {
+        if two && ind1 == "w" && ind2 == "t" {
             sNum += "2"
             break cLoop
         }
     case "r":
-        if c < arr.count + 3 && arr[ind-c-1] == "u" && arr[ind-c-2] == "o" && arr[ind-c-3] == "f"{
+        if three && ind1 == "u" && ind2 == "o" && ind3 == "f"{
             sNum += "4"
             break cLoop
         }
     case "x":
-        if c < arr.count + 1 && arr[ind-c-1] == "i" && arr[ind-c-2] == "s" {
+        if one && ind1 == "i" && ind2 == "s" {
             sNum += "6"
             break cLoop
         }
     case "n":
-        if c < arr.count + 4 && arr[ind-c-1] == "e" && arr[ind-c-2] == "v" && arr[ind-c-3] == "e" && arr[ind-c-4] == "s" {
+        if four && ind1 == "e" && ind2 == "v" && ind3 == "e" && ind4 == "s" {
                 sNum += "7"
                 break cLoop
             }
     case "t":
-        if c < arr.count + 4 && arr[ind-c-1] == "h" && arr[ind-c-2] == "g" && arr[ind-c-3] == "i" && arr[ind-c-4] == "e" {
+        if four && ind1 == "h" && ind2 == "g" && ind3 == "i" && ind3 == "e" {
             sNum += "8"
             break cLoop
         }
     default:
         break
-    }
+        }
     }
     s2 += Int(sNum)!
 }
