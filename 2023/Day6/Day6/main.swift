@@ -18,14 +18,11 @@ var distance = lines[1].components(separatedBy: " ").map({ Int($0) ?? 0})
 distance.removeAll(where: { $0==0 })
 var c = 1
 var s = 0
-print(time,distance)
 for ind in 0..<time.count {
     let t = time[ind]
     var sub = 0
 iLoop: for i in 1...t {
-        let hold = t-i
-        let p = hold*i
-        let d = distance[ind]
+    let hold = t-i, p = hold*i, d = distance[ind]
         if p > d {
             sub = t-i-i+1
             break iLoop
@@ -51,5 +48,4 @@ iLoop: for i in 1...ts {
         break iLoop
     }
 }
-//print(ts, ds)
 print(c,s)
