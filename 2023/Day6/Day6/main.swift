@@ -31,12 +31,12 @@ iLoop: for i in 1...t {
     c*=sub
 }
 var gs = ""
-for i in lines[0].split(separator: ":")[1].components(separatedBy: " ") {
+for i in lines[0].split(separator: ":")[1].components(separatedBy: .whitespaces) {
     gs+=i
 }
 let ts = Int(gs)!
     gs = ""
-for i in lines[1].split(separator: ":")[1].components(separatedBy: " ") {
+for i in lines[1].split(separator: ":")[1].components(separatedBy: .whitespaces) {
     gs+=i
 }
 let ds = Int(gs)!
