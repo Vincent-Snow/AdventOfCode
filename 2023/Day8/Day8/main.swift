@@ -10,7 +10,17 @@ let star = Date()
 func t() -> TimeInterval {
     return Date().timeIntervalSince(star)
 }
-
+func gcd(_ m: Int, _ n: Int) -> Int {
+    let r: Int = m % n
+    if r != 0 {
+        return gcd(n, r)
+    } else {
+        return n
+    }
+}
+func lcm(_ m: Int, _ n: Int) -> Int {
+  return m / gcd(m, n) * n
+}
 
 let testinput1 = """
 RL
@@ -44,6 +54,7 @@ XXX = (XXX, XXX)
 """
 
 
+
 let lines = input.components(separatedBy: "\n\n")
 var inst = lines[0]
 inst = inst.replacingOccurrences(of: "R", with: "1"); inst = inst.replacingOccurrences(of:"L", with: "0");
@@ -53,6 +64,9 @@ var pathDict: [String: (String,String)] = [:]
 var start = "AAA"
 let end = "ZZZ"
 var s = 0
+var c = 0
+var aArr: [String] = []
+var zArr: [String] = []
 
 for p in paths {
     var k = p.components(separatedBy: " = ")
@@ -61,11 +75,15 @@ for p in paths {
     let next = k[1].components(separatedBy: ", ")
     pathDict[key] = (next[0],next[1])
 }
-for i in pathDict {
-    print(i)
+for i in pathDict.keys {
+    if i[2] == "A" {
+        aArr.append(i)
+    }
+    if i[2] == "Z" {
+        zArr.append(i)
+    }
 }
 l: while start != end {
-    
     for i in arr {
         let path = pathDict[start]!
         if i == "0" {
@@ -81,3 +99,28 @@ l: while start != end {
     }
 }
 print(start,end,s,t())
+
+var lcm: [Int] = []
+    for asdf in aArr {
+    var asdf = asdf
+    var count = 0
+    l: while !zArr.contains(asdf) {
+        for i in arr {
+            count+=1
+                let path = pathDict[asdf]!
+                if i == "0" {
+                    asdf = path.0
+                } else if i == "1" {
+                    asdf = path.1
+                }
+                if zArr.contains(asdf) { break l }
+        }
+    }
+    lcm.append(count)
+    }
+var prod = 1
+for i in lcm {
+    prod = lcm(prod,i)
+}
+
+print(prod,t())
