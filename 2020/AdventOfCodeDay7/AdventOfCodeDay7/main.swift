@@ -28,111 +28,82 @@ var rules2  = """
             dark blue bags contain 2 dark violet bags.
             dark violet bags contain no other bags.
             """
-//1
-//3
-//7
-//15
-//31
-//63
-//127
-var rulesArray = rules.split(separator: "\n")
-var bagDict: [String:[String]] = [:]
-var containsGoldArray: Set<String> = ["shiny gold"]
-var count = 0
-var inGoldBags = 0
-var bagContentsDict: [String:Int] = [:]
+
+
+
+var rulesArray = textInput.split(separator: "\n")
+var bagDictPartOne: [String:[String]] = [:]
+var bagDictPartTwo: [String:[String]] = [:]
+var totalBagsPartOne = 0
+var totalBagsPartTwo = 0
 
 for i in 0..<rulesArray.count {
-    let firstBag = rulesArray[i].components(separatedBy: " bags contain ")
-    bagDict[firstBag[0]] = firstBag[1].components(separatedBy: ", ")
-}
-var bagContents: [[String]] = []
-var bagDive = ["", "shiny", "gold"]
-var totalBags = 0
-var tempBags = 0
-var numBags = 0
-var containingBags = 0
-var test = 0
-print(1 + (1 * ( 3 + (3*0) + 4 + (4*0))) + 2 + (2 * (5 + (5 * 0) + 6 + (6 * 0))))
-// total =  1 dark olive + (1 * (3 faded black + (3 * contains no bags) + 4 dotted blue + (4 * contains no bags))) + 2 vibrant plum + (2 * (5 faded black + (5 * contains no bags) + 6 dotted blue + (6 * contains no bags)))
-// containing = num + (num * containing)  + num2 + (num2 * containing2) + num3 + (num3 + containing3)
-// num = num + (num * containing)
-func bagRecurse() -> Int {
-    
-    bagDiveLoop: for i in bagDict["\(bagDive[1]) \(bagDive[2])"] ?? [""] {
-        
-        //bagDive = []
-        if i.contains("no other bags.") {
-        //bagContentsDict["\(bagDive[1]) \(bagDive[2])"] = 0
-            containingBags = 0
-            print("end")
-        
-        } else {
-           containingBags = tempBags
+    var x = rulesArray[i].replacingOccurrences(of: ".", with: "")
+    x = x.replacingOccurrences(of: " bags", with: "")
+    x = x.replacingOccurrences(of: " bag", with: "")
+    let firstBag = x.components(separatedBy: " contain ")
+    var removeNumbersArray: [String] = []
+    if firstBag[1] != "no other" {
+        for j in firstBag[1].components(separatedBy: ", ") {
+            var temp = j
+            temp.remove(at: temp.startIndex); temp.remove(at: temp.startIndex)
+            removeNumbersArray.append(temp)
         }
-        tempBags += numBags + (numBags * containingBags)
-        
-        bagContents = []
-        allBags: for j in bagDict.keys {
-            if i.contains(j) {
-                bagDive = i.components(separatedBy: " ")
-                bagContents.append(bagDive)
-            }
-            
-            for k in bagContents {
-                bagRecurse()
-            }
-           
-        }
-    
-    
     }
-    test += tempBags
-    print("test", test)
-    //totalBags+=tempBags
-    //containingBags = 0
-    return 0
+    bagDictPartOne[firstBag[0]] = removeNumbersArray
 }
 
-bagRecurse()
-print(tempBags)
 
-//for _ in 0...6 {
-//
-//    bagDiveLoop: for i in bagDict["\(bagDive[0]) \(bagDive[1])"] ?? [""] {
-//        print(i)
-//        //bagDive = []
-//        allBags: for j in bagDict.keys {
-//            if i.contains(j) {
-//                //print(bagDive[1], bagDive[2])
-//                bagDive = j.components(separatedBy: " ")
-//                //bagDive.append(contentsOf: j.components(separatedBy: " "))
-//                //print(bagDive)
-//
-//
-//            } else if i.contains("no other bags.") {
-//                print("something")
-//                break
-//            }
-//        }
-//    }
-//}
-// pt1
-//while count != containsGoldArray.count {
-//    count = containsGoldArray.count
-//    for i in bagDict {
-//        for j in i.value {
-//            for x in containsGoldArray {
-//                if j.contains(x) {
-//                    containsGoldArray.insert(i.key)
-//                }
-//            }
-//        }
-//    }
-//    if count > 1000000 {
-//        print("broke")
-//        break
-//    }
-//}
-//print(containsGoldArray, containsGoldArray.count-1)
+func bagContains(_ bagType: String) -> Bool {
+    if (bagType.contains("shiny gold")) {
+        return true
+    }
+    if (bagType.contains("no other")) {
+        return false
+    }
+    for i in bagDictPartOne[bagType]! {
+        if (bagContains(i) == true) {
+            return true
+        }
+    }
+    return false
+}
+
+for i in bagDictPartOne.keys {
+    if (bagContains(i) == true) {
+        totalBagsPartOne+=1
+    }
+}
+
+for i in 0..<rulesArray.count {
+    var x = rulesArray[i].replacingOccurrences(of: ".", with: "")
+    x = x.replacingOccurrences(of: " bags", with: "")
+    x = x.replacingOccurrences(of: " bag", with: "")
+    let firstBag = x.components(separatedBy: " contain ")
+    bagDictPartTwo[firstBag[0]] = firstBag[1].components(separatedBy: ", ")
+}
+
+func shinyCount(_ bagType: String) -> Int {
+    if (bagType == "no other") {
+        return 0
+    }
+    let bagCount = Int(String(bagType.first!))!
+    var temp = 0
+    var tempStr = bagType
+    tempStr.remove(at: tempStr.startIndex)
+    tempStr.remove(at: tempStr.startIndex)
+    
+    for i in bagDictPartTwo[tempStr]! {
+        temp+=bagCount*shinyCount(i)
+    }
+    
+    temp+=bagCount
+    return temp
+}
+
+print(totalBagsPartOne-1)
+print(shinyCount("1 shiny gold")-1)
+
+
+
 

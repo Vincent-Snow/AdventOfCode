@@ -40,7 +40,8 @@ for line in lines {
     while seq.reduce(0, +) != 0 {
         last.append(seq.last!)
         seq = seque(seq)
-    }    c += last.reduce(0, +)
+    }
+    c += last.reduce(0, +)
 }
 print(c)
 for line in lines {
