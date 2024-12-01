@@ -4,9 +4,23 @@
 //
 //  Created by Vincent Snow on 1/11/21.
 //
+extension StringProtocol {
+    subscript(offset: Int) -> Character { self[index(startIndex, offsetBy: offset)] }
+    subscript(range: Range<Int>) -> SubSequence {
+        let startIndex = index(self.startIndex, offsetBy: range.lowerBound)
+        return self[startIndex..<index(startIndex, offsetBy: range.count)]
+    }
+    subscript(range: ClosedRange<Int>) -> SubSequence {
+        let startIndex = index(self.startIndex, offsetBy: range.lowerBound)
+        return self[startIndex..<index(startIndex, offsetBy: range.count)]
+    }
+    subscript(range: PartialRangeFrom<Int>) -> SubSequence { self[index(startIndex, offsetBy: range.lowerBound)...] }
+    subscript(range: PartialRangeThrough<Int>) -> SubSequence { self[...index(startIndex, offsetBy: range.upperBound)] }
+    subscript(range: PartialRangeUpTo<Int>) -> SubSequence { self[..<index(startIndex, offsetBy: range.upperBound)] }
+}
 
 import Foundation
-
+let input = """
 mask = 100X000X100X00XX1010X0001X11XX100110
 mem[33470] = 43619
 mem[17642] = 12960
@@ -578,4 +592,4 @@ mask = 1001X00000X11011110XXX001X000X01X000
 mem[18609] = 22890216
 mem[9726] = 42312
 mem[14459] = 15520
-
+"""
