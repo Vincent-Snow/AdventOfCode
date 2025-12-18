@@ -18,6 +18,7 @@ let arr = Array(input).map({String($0)})
 let truth = ["m","u","l","("]
 var sum: [Int] = []
 var sum2: [Int] = []
+
 var i = 0
 while (i < arr.count - 3) {
     if i + 3 < arr.count && arr[i] == "m" && arr[i+1] == "u" && arr[i+2] == "l" && arr[i+3] == "(" {
